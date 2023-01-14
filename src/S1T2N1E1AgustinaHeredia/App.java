@@ -68,7 +68,8 @@ public class App {
 		      System.out.println("- "+listaProductos.get(i).toString());
 		    }
 	}
-	public static void eliminarProducto(String nombre) {
+	public static void eliminarProducto(String nombre) throws IndexOutOfBoundsException {
+		try {
 		String productoEliminar=nombre;
 		buscarIndiceProducto(listaProductos,productoEliminar);
 		int posicion=buscarIndiceProducto(listaProductos,productoEliminar);
@@ -78,7 +79,9 @@ public class App {
 		listaProductos.remove(producto);
 		System.out.println("El producto se ha eliminado de la base de Datos correctamente");
 		
-			    
+		}catch (IndexOutOfBoundsException e) {
+			System.out.println("El producto no se ha encontrado en la base de datos, o la lista está vacia." );
+		}
 			
 	}
 	
