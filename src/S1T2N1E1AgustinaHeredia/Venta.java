@@ -18,14 +18,22 @@ public class Venta {
 	
 	
 	public double calculaTotal() throws VentaVaciaException{
-		double n=0;
-		for (int i = 0; i < listaProductos.size(); i++) {
-		
-		n=n+(listaProductos.get(i).getPrecio());
-		
+		if (listaProductos.isEmpty()) {
+			throw new VentaVaciaException("Para hacer el calculo de venta primero debes añadir productos.");
 		}
-		precioTotalVenta= n/listaProductos.size();
-		return precioTotalVenta;
+		else {
+			double n=0;
+		
+			for (int i = 0; i < listaProductos.size(); i++) {
+		
+				n=n+(listaProductos.get(i).getPrecio());
+		
+			}
+			precioTotalVenta= n/listaProductos.size();
+		
+		
+			return precioTotalVenta;
+		}	
 		
 	}
 		

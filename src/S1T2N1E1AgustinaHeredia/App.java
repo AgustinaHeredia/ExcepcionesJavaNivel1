@@ -34,7 +34,7 @@ public class App {
 				try {
 				System.out.println("El precion total de las ventas es :"+ ventas.calculaTotal());
 				}catch (VentaVaciaException e) {
-					System.err.println(e.getMensaje);
+					System.err.println(e.getMessage());
 				}
 				break;
 			}
@@ -47,50 +47,48 @@ public class App {
 		listaProductos.add(producto);
 		return producto;
 	}
-	public static void mostrarProducto(String nombre) {
+	public static void mostrarProducto(String nombre) throws IndexOutOfBoundsException {
 		try {
 		String productoVer= nombre;
 		int posicionProducto=buscarIndiceProducto(listaProductos,productoVer);
-		//if (posicionProducto>=0){
 		
-			Producto producto=listaProductos.get(posicionProducto);
-			System.out.println(producto.toString());
+		Producto producto=listaProductos.get(posicionProducto);
+		System.out.println(producto.toString());
 			
-		}catch (ArrayIndexOutOfBoundsException e) {
-			System.err.println("El Producto no se ha encontrado en la base de datos.");	
-
+		} catch (IndexOutOfBoundsException e) {
+			System.out.println("El producto no se ha encontrado en la base de datos, o la lista está vacia." );
 		}
+
+		
 	}
 	public static void mostrarListaProductos() {
+		System.out.println("Los productos de la lista son:");
 		for (int i=0;i<listaProductos.size();i++) {
 		      
-		      System.out.println(listaProductos.get(i));
+		      System.out.println("- "+listaProductos.get(i).toString());
 		    }
 	}
 	public static void eliminarProducto(String nombre) {
-		try {
 		String productoEliminar=nombre;
 		buscarIndiceProducto(listaProductos,productoEliminar);
 		int posicion=buscarIndiceProducto(listaProductos,productoEliminar);
-			//if (posicion>=0){
 		
-				Producto producto=listaProductos.get(posicion);
-				listaProductos.remove(producto);
-				System.out.println("El producto se ha eliminado de la base de Datos correctamente");
-		}catch (ArrayIndexOutOfBoundsException e) {
-				System.err.println("El producto no se ha encontrado en la base de datos.");	
+		
+		Producto producto=listaProductos.get(posicion);
+		listaProductos.remove(producto);
+		System.out.println("El producto se ha eliminado de la base de Datos correctamente");
+		
 			    
-			}
+			
 	}
 	
 	//Herramientas
-		public static int buscarIndiceProducto(ArrayList listaProductos,String nom) {
+		public static int buscarIndiceProducto(ArrayList<Producto> listaProductos,String nom) {
 		    int posicion = -1;
 		    int i = 0;
 		    boolean encontrado = false;
-		    String nomProducto =((Producto) listaProductos.get(i)).getNombre();
 		    while(i<listaProductos.size()&& encontrado==false) {
-		          if (nom.equalsIgnoreCase(nomProducto)) {
+		          if (listaProductos.get(i).getNombre().equalsIgnoreCase(nom)) {
 		              posicion = i;
 		              encontrado = true;
 		          }
@@ -98,6 +96,7 @@ public class App {
 		    }
 		    return  posicion;
 		}
+		
 	
 	static void menuApp() {
 		System.out.println("ELIGE LA OPCIÓN QUE QUIERES REALIZAR");
@@ -122,7 +121,7 @@ public class App {
 	}
 	static double pedirDouble(String texto) {
 		System.out.println(texto);
-		double n1 = input.nextInt();
-		return n1;
+		double d1 = input.nextDouble();
+		return d1;
 	}
 }
